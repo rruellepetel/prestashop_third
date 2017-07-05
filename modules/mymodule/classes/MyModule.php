@@ -168,8 +168,7 @@ class MyModule extends Module
       array(
           'my_module_name' => Configuration::get('MYMODULE_NAME'),
           'my_module_link' => $this->context->link->getModuleLink('mymodule', 'display'),
-          'my_module_count' => count($products),
-          'my_module_last_product' => $products[0][name]
+          'my_module_count' => count($products)
       )
   );
         return $this->display(_PS_MODULE_DIR_.$this->name, 'mymodule.tpl');

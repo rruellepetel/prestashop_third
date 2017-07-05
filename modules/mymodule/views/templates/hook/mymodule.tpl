@@ -12,8 +12,7 @@
     <ul>
       <li><a href="{$my_module_link}"  title="{l s='Click this link' mod='mymodule'}">{l s='Click me!' mod='mymodule'}</a></li>
     </ul>
-    <p> Total Products :{$my_module_count} </p>
-    <p>Last Product : {$my_module_last_product}</p>
+    <span>Il y a {$my_module_count} Produits</span>
   </div>
 </div>
 <!-- /Block mymodule -->
