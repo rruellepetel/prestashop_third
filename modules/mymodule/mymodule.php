@@ -1,6 +1,5 @@
 <?php
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
     // // Storing a serialized array.
