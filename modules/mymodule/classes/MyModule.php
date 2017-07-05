@@ -50,27 +50,25 @@ class MyModule extends Module
         return true;
     }
     public function getContent()
-{
-    $output = null;
-
-    if (Tools::isSubmit('submit'.$this->name))
     {
-        $my_module_name = strval(Tools::getValue('MYMODULE_NAME'));
-        if (!$my_module_name
+        $output = null;
+
+        if (Tools::isSubmit('submit'.$this->name)) {
+            $my_module_name = strval(Tools::getValue('MYMODULE_NAME'));
+            if (!$my_module_name
           || empty($my_module_name)
-          || !Validate::isGenericName($my_module_name))
-            $output .= $this->displayError($this->l('Invalid Configuration value'));
-        else
-        {
-            Configuration::updateValue('MYMODULE_NAME', $my_module_name);
-            $output .= $this->displayConfirmation($this->l('Settings updated'));
+          || !Validate::isGenericName($my_module_name)) {
+                $output .= $this->displayError($this->l('Invalid Configuration value'));
+            } else {
+                Configuration::updateValue('MYMODULE_NAME', $my_module_name);
+                $output .= $this->displayConfirmation($this->l('Settings updated'));
+            }
         }
+        return $output.$this->displayForm();
     }
-    return $output.$this->displayForm();
-}
-public function displayForm()
-{
-    // Get default language
+    public function displayForm()
+    {
+        // Get default language
     $default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 
     // Init Fields form array
@@ -93,24 +91,24 @@ public function displayForm()
         )
     );
 
-    $helper = new HelperForm();
+        $helper = new HelperForm();
 
     // Module, token and currentIndex
     $helper->module = $this;
-    $helper->name_controller = $this->name;
-    $helper->token = Tools::getAdminTokenLite('AdminModules');
-    $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
+        $helper->name_controller = $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
     // Language
     $helper->default_form_language = $default_lang;
-    $helper->allow_employee_form_lang = $default_lang;
+        $helper->allow_employee_form_lang = $default_lang;
 
     // Title and toolbar
     $helper->title = $this->displayName;
-    $helper->show_toolbar = true;        // false -> remove toolbar
+        $helper->show_toolbar = true;        // false -> remove toolbar
     $helper->toolbar_scroll = true;      // yes - > Toolbar is always visible on the top of the screen.
     $helper->submit_action = 'submit'.$this->name;
-    $helper->toolbar_btn = array(
+        $helper->toolbar_btn = array(
         'save' =>
         array(
             'desc' => $this->l('Save'),
@@ -126,25 +124,25 @@ public function displayForm()
     // Load current value
     $helper->fields_value['MYMODULE_NAME'] = Configuration::get('MYMODULE_NAME');
 
-    return $helper->generateForm($fields_form);
-    $helper = new HelperForm();
+        return $helper->generateForm($fields_form);
+        $helper = new HelperForm();
 
     // Module, Token and currentIndex
     $helper->module = $this;
-    $helper->name_controller = $this->name;
-    $helper->token = Tools::getAdminTokenLite('AdminModules');
-    $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
+        $helper->name_controller = $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
     // Language
     $helper->default_form_language = $default_lang;
-    $helper->allow_employee_form_lang = $default_lang;
+        $helper->allow_employee_form_lang = $default_lang;
 
     // title and Toolbar
     $helper->title = $this->displayName;
-    $helper->show_toolbar = true;        // false -> remove toolbar
+        $helper->show_toolbar = true;        // false -> remove toolbar
     $helper->toolbar_scroll = true;      // yes - > Toolbar is always visible on the top of the screen.
     $helper->submit_action = 'submit'.$this->name;
-    $helper->toolbar_btn = array(
+        $helper->toolbar_btn = array(
         'save' =>
         array(
             'desc' => $this->l('Save'),
@@ -160,26 +158,29 @@ public function displayForm()
     // Load current value
     $helper->fields_value['MYMODULE_NAME'] = Configuration::get('MYMODULE_NAME');
 
-    return $helper->generateForm($fields_form);
-}
-public function hookDisplayLeftColumn($params)
-{
-  $this->context->smarty->assign(
+        return $helper->generateForm($fields_form);
+    }
+    public function hookDisplayLeftColumn($params)
+    {
+        $productObj = new Product();
+        $products = $productObj->getProducts(Context::getContext()->language->id, 0, 0, 'id_product', 'DESC', false, true);
+        $this->context->smarty->assign(
       array(
           'my_module_name' => Configuration::get('MYMODULE_NAME'),
-          'my_module_link' => $this->context->link->getModuleLink('mymodule', 'display')
+          'my_module_link' => $this->context->link->getModuleLink('mymodule', 'display'),
+          'my_module_count' => count($products)
       )
   );
-  return $this->display(_PS_MODULE_DIR_.$this->name, 'mymodule.tpl');
-}
+        return $this->display(_PS_MODULE_DIR_.$this->name, 'mymodule.tpl');
+    }
 
-public function hookDisplayRightColumn($params)
-{
-  return $this->hookDisplayLeftColumn($params);
-}
+    public function hookDisplayRightColumn($params)
+    {
+        return $this->hookDisplayLeftColumn($params);
+    }
 
-public function hookDisplayHeader()
-{
-  $this->context->controller->addCSS($this->_path.'modules/mymodule/css/mymodule.css', 'all');
-}
+    public function hookDisplayHeader()
+    {
+        $this->context->controller->addCSS($this->_path.'modules/mymodule/css/mymodule.css', 'all');
+    }
 }
