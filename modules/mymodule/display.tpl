@@ -1,1 +1,1 @@
-<p>Welcome To My Shop</p>
+{l s='Welcome to this page!' mod='mymodule'}
