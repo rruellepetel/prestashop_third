@@ -32,7 +32,7 @@ class MyModule extends Module
         if (!parent::install()
             || !$this->registerHook('leftColumn')
             || !$this->registerHook('header')
-            || !Configuration::updateValue('MYMODULE_NAME', 'my friend')
+            || !Configuration::updateValue('MYMODULE_NAME', 'hello world')
         ) {
             return false;
         }
@@ -162,5 +162,24 @@ public function displayForm()
 
     return $helper->generateForm($fields_form);
 }
+public function hookDisplayLeftColumn($params)
+{
+  $this->context->smarty->assign(
+      array(
+          'my_module_name' => Configuration::get('MYMODULE_NAME'),
+          'my_module_link' => $this->context->link->getModuleLink('mymodule', 'display')
+      )
+  );
+  return $this->display(_PS_MODULE_DIR_.$this->name, 'mymodule.tpl');
+}
 
+public function hookDisplayRightColumn($params)
+{
+  return $this->hookDisplayLeftColumn($params);
+}
+
+public function hookDisplayHeader()
+{
+  $this->context->controller->addCSS($this->_path.'modules/mymodule/css/mymodule.css', 'all');
+}
 }
