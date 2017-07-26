@@ -1,5 +1,6 @@
 <?php
 
+
 class AdminBlogController extends ModuleAdminController
 
 {
@@ -8,7 +9,8 @@ class AdminBlogController extends ModuleAdminController
  {
 
     $this->table='blog';
-    $this->className='blog';
+    $this->className='BlogPost';
+    $this->bootstrap=True;
 
      $this->fields_list = array(
 
@@ -28,12 +30,23 @@ class AdminBlogController extends ModuleAdminController
 
    $this->fields_form = array(
   'legend' => array(
-    'title' => $this->l('Edit carrier'),
+    'title' => $this->l('Edit Blog'),
   ),
   'input' => array(
     array(
       'type' => 'text',
-      'name' => 'shipping_method',
+      'name' => 'blog_name',
+      'label'=> 'Nom'
+     ),
+    array(
+      'type' => 'textarea',
+      'name' => 'blog_description',
+      'label'=> 'Description'
+     ),
+    array(
+      'type' => 'date',
+      'name' => 'date_blog',
+      'label'=> 'Date'
      ),
   ),
   'submit' => array(
