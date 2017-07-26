@@ -1,6 +1,6 @@
 <?php
 
-class Blog extends Module
+class blog extends Module
 {
     public function __construct()
     {
@@ -49,7 +49,7 @@ class Blog extends Module
 
         $sql = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.'blog` (
 
-            `id` int(11) NOT NULL,
+            `id_blog` int(11) NOT NULL AUTO_INCREMENT,
 
             `blog_name` varchar(50) NOT NULL,
 
@@ -57,7 +57,7 @@ class Blog extends Module
 
             `date_blog` datetime NOT NULL,
 
-            PRIMARY KEY (`id`))';
+            PRIMARY KEY (`id_blog`))';
 
         return Db::getInstance()->execute($sql);
 
