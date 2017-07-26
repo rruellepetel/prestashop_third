@@ -81,7 +81,7 @@ class Blog extends Module
 
         if (!parent::uninstall()
 
-            || !Configuration::deleteByName('blog_NAME')
+            || !Configuration::deleteByName('BLOG_NAME')
             || !$this->uninstallDb()
             || !$this->removeAdminTab()
 
