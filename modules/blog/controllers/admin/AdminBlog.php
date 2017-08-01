@@ -10,6 +10,7 @@ class AdminBlogController extends ModuleAdminController
 
     $this->table='blog';
     $this->className='BlogPost';
+    $this->actions = array('delete');
     $this->bootstrap=True;
 
      $this->fields_list = array(

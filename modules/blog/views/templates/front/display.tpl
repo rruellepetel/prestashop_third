@@ -1,1 +1,1 @@
-{l s='Welcome to this page!' mod='blog'}
+{l s='Welcome to this marvelous blog!' mod='blog'}
